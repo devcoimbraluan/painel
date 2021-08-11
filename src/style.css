@@ -1,0 +1,149 @@
+
+body {
+    background-color: #000080;
+    width: 1920px;
+    height: 1080px;
+}
+
+footer {
+    margin: 15px;
+    font-size: xx-large;
+    font-weight: bold;
+    color: white;
+}
+
+#container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: xx-large;
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+
+  }
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+@keyframes auto-progress {
+  0% {
+    width: 0%
+  }
+  100% {
+    width: 100%;
+  }
+}
+.progress-bar {
+background-color: #1a1a1a;
+height: 8px;
+width: 450px;
+margin: -60px auto;
+margin-bottom: 0px;
+border-radius: 5px;
+box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+}
+
+.progress-bar-inner {
+display: block;
+height: 8px;
+width: 0%;
+background-color: #34c2e3;
+border-radius: 3px;
+box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+position: relative;
+animation: auto-progress 20s infinite linear;
+}
+
+tr:nth-child(odd) {
+    background: #000080;
+  }
+  
+  tr:nth-child(even) {
+    background: #0000CD;
+  }
+
+table.Table {
+    width: 109%;
+    background-color: #000080;
+    border-collapse: collapse;
+    border-width: 5px;
+    border-color: #000000;
+    border-style: solid;
+    color: white;
+    font-weight: bold;
+    margin-top: none;
+    -webkit-text-stroke: 0px white;
+    text-align: center;
+  }
+
+
+  table.Table td, table.Table th {
+    border-width: 3px;
+    border-color: #000000;
+    border-style: solid;
+    padding: 1.5px;
+  }
+  
+  table.Table thead {
+    background-color: #000000;
+    font-style: normal;
+  }
+.att {
+  font-style: italic;
+  margin-left: 750px;
+}
+#total {
+    margin-left: -650px;
+}
+#status {
+  size: 50px;
+  color: white;
+  text-shadow: 4px 4px black;
+}
+#PENDENTE {
+    background-color: red;
+    color: black;
+    text-shadow: 2px 2px white;
+}
+#SEPARAÇÃO{
+    background-color: green;
+    color: black;
+    text-shadow: 2px 2px white;
+}
+#CONFERÊNCIA{
+    background-color: orange;
+    color: black;
+    text-shadow: 2px 2px white;
+}
+#AGUARDANDO_CONFERÊNCIA{
+    background-color: yellow;
+    color: black;
+    text-shadow: 2px 2px white;
+}
+.pagination {
+  margin: 15px auto;
+  display: flex;
+  list-style: none;
+  outline: none;
+}
+.pagination > .active > a{
+  background-color: #0000CD ;
+  border-color: #0000CD ;
+  color: #fff;
+}
+.pagination > li > a{
+  border: 1px solid #0000CD ;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+}
+.pagination > li > a, .pagination > li > span{
+  color: white
+}
+#pagatual {
+  color: white;
+  font: x-large;
+  font-weight: bolder;
+}
