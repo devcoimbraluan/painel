@@ -1,70 +1,44 @@
-import React, { PureComponent } from 'react';
-import './style.css'
+import React, { useEffect, useState } from 'react' 
 import axios from 'axios'
-import ReactPaginate from 'react-paginate';
+import Pedidos from './components/pedidos'
+import { PEDIDOS_POR_PAG } from './utils/constant'
+import '../src/style.css'
 
-class App extends PureComponent {
+function App () {
+    const [pedidos, setPedidos] = useState([])
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(0)
 
-  constructor(props) {
-    super(props)
-    
-    this.state = {
-      offset: 0,
-      pedidos: [],
-      orgtableData: [],
-      perPage: 18,
-      currentPage: 0
+    useEffect(() => {
+        const fetchPedidos = async () => {
+            const res = await axios.get('http://10.150.7.15:8000/json')
+            setPedidos(res.data)
+            setTotalPages(Math.ceil(res.data.length / PEDIDOS_POR_PAG))
+        }
+        fetchPedidos()
+    }, [])
+
+    const pag = num => {
+        if (totalPages < page + 1) {
+            setPage(1)
+        }else{setPage(page + 1)}
     }
-
-    this.handlePageClick = this.handlePageClick.bind(this)
-  }
-
-  handlePageClick = (e) => {
-    const selectedPage = e.selected
-    const offset = selectedPage * this.state.perPage
+    setTimeout(pag, 10000)
     
-    this.setState({
-      currentPage: selectedPage,
-      offset: offset
-    }, () => {
-      this.loadMoreData()
-    })
-  }
-    loadMoreData() {
-      const data = this.state.orgtableData
-
-      const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-      this.setState({
-        pageCount: Math.ceil(data.length / this.state.perPage),
-        pedidos:slice
-      })
-    }
-    componentDidMount() {
-    this.getData()
-  }
-  getData() {
-    axios 
-        .get('http://localhost:8000/json')
-        .then(res => {
-          var tdata = res.data
-          console.log('data-->' +JSON.stringify(tdata))
-          var slice = tdata.slice(this.state.offset, this.state.offset + this.state.perPage)
-          this.setState({ 
-            pageCount: Math.ceil(tdata.length / this.state.perPage),
-            orgtableData : tdata,
-            pedidos:slice
-           });
-        })
-  }
-  render() {
-    const contar_linhas = ('#table tr').length;
     return (
-      <div id="container">
-        <body>
-        <table className="Table">
+        <div>
+            {<>
+                <div id="font">
+                
+                <div className="progress-bar-container">
+            <div className="progress-bar">
+                <span className="progress-bar-inner"></span>
+            </div>
+          </div>
+                <table className="Table">
             <thead>
               <tr>
-                <th bgcolor="black">Status</th>
+                <th bgcolor="black" id="pagatual"><span id="pagina">Página: {page} de {totalPages}</span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Status</th>
                 <th bgcolor="black">Pedido</th>
                 <th bgcolor="black">Mapa</th>
                 <th bgcolor="black">Gerado</th>
@@ -76,40 +50,25 @@ class App extends PureComponent {
                 <th bgcolor="black">Operador</th>
               </tr>
             </thead>
-          <tbody>
-    
-          {
-              this.state.pedidos.map((tdata, i) => (
-                  <tr div id="status">
-                    <td><div id={tdata.pedido.status}>{tdata.pedido.status}</div></td>
-                    <td>{tdata.pedido.pedido}</td>
-                    <td>{tdata.pedido.mapa}</td>
-                    <td>{tdata.pedido.gerado}</td>
-                    <td>{tdata.pedido.inicio}</td>
-                    <td>{tdata.pedido.previsao}</td>
-                    <td>{tdata.pedido.peso}</td>
-                    <td>{tdata.pedido.itens}</td>
-                    <td>{tdata.pedido.pallets}</td>
-                    <td>{tdata.pedido.operador}</td>
-                  </tr>                   
-                 ))
-                        }
-            </tbody>
+          <Pedidos pedidos={pedidos} page={page}/>
           </table>
-          <span id="pagatual">{this.state.currentPage + 1}</span>
-         </body>
-         <footer>
-         <div className="progress-bar-container">
-              <div className="progress-bar stripes animated reverse slower">
-                <span className="progress-bar-inner"></span>
-                <span id="total">Total de Mapas: {contar_linhas}</span>
-              </div>
+          </div>
+            </>}
+            {/*<>
+            <div id="font">
+                <div className="progress-bar-container">
+                    <div className="progress-bar">
+                        <span className="progress-bar-inner"></span>
+                    </div>
+                    <span id="pagina">Página: {page} de {totalPages}</span>
+                </div>
+                        <Pedidos pedidos={pedidos} page={page}/>
             </div>
-            </footer>
-      </div>
-      
+            </>*/}
+            
+            <br />
+        </div>
     )
-  };
-};
+}
 
 export default App;
