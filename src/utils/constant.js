@@ -1,1 +1,1 @@
-export const PEDIDOS_POR_PAG = 8;
+export const PEDIDOS_POR_PAG = 21;

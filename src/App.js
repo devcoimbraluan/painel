@@ -54,17 +54,6 @@ function App () {
           </table>
           </div>
             </>}
-            {/*<>
-            <div id="font">
-                <div className="progress-bar-container">
-                    <div className="progress-bar">
-                        <span className="progress-bar-inner"></span>
-                    </div>
-                    <span id="pagina">Página: {page} de {totalPages}</span>
-                </div>
-                        <Pedidos pedidos={pedidos} page={page}/>
-            </div>
-            </>*/}
             
             <br />
         </div>
